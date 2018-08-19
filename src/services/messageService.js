@@ -22,7 +22,7 @@ class messageService {
         returnText = messageService.getTagListText(youtubeSvc);
         break;
       default:
-        retrunText = messageServeic.getTaggedVideoUrl(youtubeSvc, command);
+        returnText = messageService.getTaggedVideoUrl(youtubeSvc, command);
         break;
     }
 
@@ -46,7 +46,7 @@ class messageService {
     const videoItem = youtubeService.getRandVideoItemFromPlaylistItems(playlistItems);
     return messageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
   }
-  static async getTagedVideoUrl(youtubeSvc, command) {
+  static async getTaggedVideoUrl(youtubeSvc, command) {
     const tags = youtubeSvc.tags; 
     let playlistId = null;
 
