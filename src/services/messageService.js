@@ -39,7 +39,7 @@ class messageService {
     const playlistId = tags[randTaggedPlaylistIndex];
     const playlistItems = youtubeSvc.getPlaylistItems(playlistId); 
     const videoItem = youtubeService.getRandVideoItemFromPlaylistItems(playlistItems);
-    return massageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
+    return messageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
   }
   static getTagedVideoUrl(youtubeSvc, command) {
     const tags = youtubeSvc.tags; 
@@ -56,7 +56,7 @@ class messageService {
 
     const playlistItems = youtubeSvc.getPlaylistItems(playlistId); 
     const videoItem = youtubeService.getRandVideoItemFromPlaylistItems(playlistItems);
-    return massageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
+    return messageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
   }
   static genVideoUrlByVideoId(videoId) {
     return `https://www.youtube.com/watch?v=${videoId}`;
