@@ -46,8 +46,8 @@ class messageService {
     let playlistId = null;
 
     for(let i = 0; i < tags.length; i++) {
-      if (command === tags.primaryTag || command === tags.secondaryTag || command === tags.shortcut) {
-        playlistId = tags.playlistId;
+      if (command === tags[i].primaryTag || command === tags[i].secondaryTag || command === tags[i].shortcut) {
+        playlistId = tags[i].playlistId;
         break;
       }
     }
