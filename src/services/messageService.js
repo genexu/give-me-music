@@ -7,7 +7,7 @@ class messageService {
     if (splittedMessage[0] !== 'GiveMeMusic') return null;
     
     let returnText = null; 
-    let youtubeSvc = new youtubeService();
+    let youtubeSvc = new youtubeService({});
 
     if (splittedMessage.length === 1) return messageService.getRandVideoUrl(youtubeSvc);
 
