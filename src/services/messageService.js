@@ -36,10 +36,11 @@ class messageService {
   static getRandVideoUrl(youtubeSvc) {
     const tags = youtubeSvc.tags; 
     const randTaggedPlaylistIndex = Math.floor(Math.random() * tags.length);
-    const playlistId = tags[randTaggedPlaylistIndex];
-    const playlistItems = youtubeSvc.getPlaylistItems(playlistId); 
-    const videoItem = youtubeService.getRandVideoItemFromPlaylistItems(playlistItems);
-    return messageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
+    const playlistId = tags[randTaggedPlaylistIndex].playlistId;
+    return youtubeSvc.getPlaylistItems(playlistId).then(playlistItems => {
+      const videoItem = youtubeService.getRandVideoItemFromPlaylistItems(playlistItems);
+      return messageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
+    }); 
   }
   static getTagedVideoUrl(youtubeSvc, command) {
     const tags = youtubeSvc.tags; 
@@ -54,9 +55,10 @@ class messageService {
 
     if (!playlistId) return null;
 
-    const playlistItems = youtubeSvc.getPlaylistItems(playlistId); 
-    const videoItem = youtubeService.getRandVideoItemFromPlaylistItems(playlistItems);
-    return messageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
+    return youtubeSvc.getPlaylistItems(playlistId).then(playlistItems => {
+      const videoItem = youtubeService.getRandVideoItemFromPlaylistItems(playlistItems);
+      return messageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
+    });
   }
   static genVideoUrlByVideoId(videoId) {
     return `https://www.youtube.com/watch?v=${videoId}`;
