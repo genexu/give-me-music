@@ -5,9 +5,9 @@ import linebotConfig from '../configs/linebotConfig';
 const client = new line.Client(linebotConfig);
 
 class linebotService {
-  static handleEvent(event) {
+  static async handleEvent(event) {
     if (event.type !== 'message' || event.message.type !== 'text') return Promise.resolve(null);
-    let text = messageService.handleMessage(event.message.text) 
+    const text = await messageService.handleMessage(event.message.text) 
     return linebotService.returnText(event, text);
   }
   static returnText(event, text) {

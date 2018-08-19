@@ -33,16 +33,15 @@ class messageService {
     const tags = youtubeSvc.tags;
     return 'Tags List';
   } 
-  static getRandVideoUrl(youtubeSvc) {
+  static async getRandVideoUrl(youtubeSvc) {
     const tags = youtubeSvc.tags; 
     const randTaggedPlaylistIndex = Math.floor(Math.random() * tags.length);
     const playlistId = tags[randTaggedPlaylistIndex].playlistId;
-    return youtubeSvc.getPlaylistItems(playlistId).then(playlistItems => {
-      const videoItem = youtubeService.getRandVideoItemFromPlaylistItems(playlistItems);
-      return messageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
-    }); 
+    const playlistItems = await youtubeSvc.getPlaylistItems(playlistId);
+    const videoItem = youtubeService.getRandVideoItemFromPlaylistItems(playlistItems);
+    return messageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
   }
-  static getTagedVideoUrl(youtubeSvc, command) {
+  static async getTagedVideoUrl(youtubeSvc, command) {
     const tags = youtubeSvc.tags; 
     let playlistId = null;
 
@@ -55,10 +54,9 @@ class messageService {
 
     if (!playlistId) return null;
 
-    return youtubeSvc.getPlaylistItems(playlistId).then(playlistItems => {
-      const videoItem = youtubeService.getRandVideoItemFromPlaylistItems(playlistItems);
-      return messageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
-    });
+    const playlistItems = await youtubeSvc.getPlaylistItems(playlistId);
+    const videoItem = youtubeService.getRandVideoItemFromPlaylistItems(playlistItems);
+    return messageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
   }
   static genVideoUrlByVideoId(videoId) {
     return `https://www.youtube.com/watch?v=${videoId}`;
