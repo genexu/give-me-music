@@ -29,7 +29,7 @@ class youtubeService {
       })
   }
   static getRandVideoItemFromPlaylistItems(playlistItems) {
-    const randIndex = Math.floor(Math.rnadom() * playlistItems.length);
+    const randIndex = Math.floor(Math.random() * playlistItems.length);
     return playlistItems[randIndex];
   }
 }
