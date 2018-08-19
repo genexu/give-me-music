@@ -6,6 +6,7 @@ const youtubeConfig = {
     { primaryTag: '慵懶', secondaryTag: 'Lazy', shortcut: 'L', playlistId: 'PLWP5j0tk8f8bSC7WxA5ek7Gp2tCfqC3rP' },
     { primaryTag: '厭世', secondaryTag: 'Outsider', shortcut: 'O', playlistId: 'PLWP5j0tk8f8bVqnShI15v_vgXwNk-l-Zh' },
     { primaryTag: '老靈魂', secondaryTag: 'OldSoul', shortcut: 'OS', playlistId: 'PLWP5j0tk8f8b4_Q-XGluGIliTIcfXEjvn' },
+    { primaryTag: '聽聽', secondaryTag: 'JustListen', shortcut: 'JL', playlistId: 'PLWP5j0tk8f8ZxAgYLdO7sepndTiTZEulP' },
   ]
 }
 
