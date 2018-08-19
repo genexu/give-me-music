@@ -31,7 +31,12 @@ class messageService {
   } 
   static getTagListText(youtubeSvc) {
     const tags = youtubeSvc.tags;
-    return 'Tags List';
+    let text = '=== Tag List === \n';
+    text += 'Primary Tag | Secondary Tag | Shortcut \n';
+    tags.forEach(tagItem => {
+      text += `${tagItem.primaryTag} | ${tagItem.secondaryTag} | ${tagItem.shortcut} \n`;
+    })
+    return text;
   } 
   static async getRandVideoUrl(youtubeSvc) {
     const tags = youtubeSvc.tags; 
