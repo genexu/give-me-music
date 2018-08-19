@@ -2,7 +2,7 @@ import youtubeService from './youtubeService';
 import { helpMessage } from '../constants/message';
 
 class messageService {
-  static handleMessage(text) {
+  static async handleMessage(text) {
     let splittedMessage = text.split(/\s+/);
     if (splittedMessage[0] !== 'GiveMeMusic') return null;
     
@@ -19,10 +19,10 @@ class messageService {
         break;
       case '-l':
       case '--list':
-        returnText = messageService.getTagListText(youtubeSvc);
+        returnText = await messageService.getTagListText(youtubeSvc);
         break;
       default:
-        returnText = messageService.getTaggedVideoUrl(youtubeSvc, command);
+        returnText = await messageService.getTaggedVideoUrl(youtubeSvc, command);
         break;
     }
 
