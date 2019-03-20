@@ -1,4 +1,7 @@
+export const greetingMessage = 'Welcome, my friends.'
+
 export const helpMessage = `
+
 === GiveMeMusic Helper ===
 Usage
   GiveMeMusic -h --help
@@ -10,6 +13,5 @@ Usage
   GiveMeMusic [Tag Name]
   - Pick one random video for specific tag playlist ex: GiveMeMusic 厭世
 ==========================
-
 
 `

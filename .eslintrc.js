@@ -3,7 +3,7 @@ module.exports = {
         "browser": true,
         "es6": true
     },
-    "extends": [ "airbnb-base", "eslint:recommended" ],
+    "extends": ["airbnb-base", "eslint:recommended"],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
@@ -12,6 +12,7 @@ module.exports = {
         "ecmaVersion": 2018,
         "sourceType": "module"
     },
-    "rules": {
+  "rules": {
+      "no-console": ["error", { allow: ["warn", "error"] }]
     }
 };

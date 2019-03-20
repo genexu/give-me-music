@@ -25,7 +25,7 @@ class youtubeService {
         return items;
       })
       .catch(err => {
-        console.log(err.response.data.error);
+        console.error(err.response.data.error);
       })
   }
   static getRandVideoItemFromPlaylistItems(playlistItems) {
