@@ -7,7 +7,6 @@ class youtubeService {
     this.maxResults = maxResults;
     this.fields = fields;
     this.key = youtubeConfig.key;
-    this.tags = youtubeConfig.tags;
   }
   getPlaylistItems(playlistId, pageToken = null) {
     let baseUrl = `https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${playlistId}&part=${this.part}&maxResults=${this.maxResults}&fields=${this.fields}&key=${this.key}`;

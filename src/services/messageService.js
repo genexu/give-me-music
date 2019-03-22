@@ -1,15 +1,18 @@
 import youtubeService from './youtubeService';
+import tagService from './tagService';
 import { helpMessage } from '../constants/message';
 
 class messageService {
-  static async handleMessage(text) {
+  constructor({ youtubeSvc }) {
+    this.youtubeSvc = youtubeSvc;
+  }
+  async handleMessage(text) {
     let splittedMessage = text.split(/\s+/);
     if (splittedMessage[0] !== 'GiveMeMusic') return null;
     
     let returnText = null; 
-    let youtubeSvc = new youtubeService({});
 
-    if (splittedMessage.length === 1) return messageService.getRandVideoUrl(youtubeSvc);
+    if (splittedMessage.length === 1) return this.getRandVideoUrl();
 
     let command = splittedMessage[1];
     switch(command) {
@@ -19,47 +22,27 @@ class messageService {
         break;
       case '-l':
       case '--list':
-        returnText = await messageService.getTagListText(youtubeSvc);
+        returnText = tagService.getTagListText();
         break;
       default:
-        returnText = await messageService.getTaggedVideoUrl(youtubeSvc, command);
+        returnText = await this.getTaggedVideoUrl(command);
         break;
     }
 
     if (!returnText) return 'Command Not Supported';
     return returnText;
   } 
-  static getTagListText(youtubeSvc) {
-    const tags = youtubeSvc.tags;
-    let text = '=== Tag List === \n';
-    text += 'Primary Tag | Secondary Tag | Shortcut \n';
-    tags.forEach(tagItem => {
-      text += `${tagItem.primaryTag} | ${tagItem.secondaryTag} | ${tagItem.shortcut} \n`;
-    })
-    return text;
-  } 
-  static async getRandVideoUrl(youtubeSvc) {
-    const tags = youtubeSvc.tags; 
-    const randTaggedPlaylistIndex = Math.floor(Math.random() * tags.length);
-    const playlistId = tags[randTaggedPlaylistIndex].playlistId;
-    const playlistItems = await youtubeSvc.getPlaylistItems(playlistId);
-    const videoItem = youtubeService.getRandVideoItemFromPlaylistItems(playlistItems);
-    return messageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
+  getRandVideoUrl() {
+    const playlistId = tagService.getRandPlaylistId();
+    return this.getVideoUrlByPlaylistId(playlistId);
   }
-  static async getTaggedVideoUrl(youtubeSvc, command) {
-    const tags = youtubeSvc.tags; 
-    let playlistId = null;
-
-    for(let i = 0; i < tags.length; i++) {
-      if (command === tags[i].primaryTag || command === tags[i].secondaryTag || command === tags[i].shortcut) {
-        playlistId = tags[i].playlistId;
-        break;
-      }
-    }
-
+  getTaggedVideoUrl(command) {
+    const playlistId = tagService.getPlaylistIdByCommand(command);
     if (!playlistId) return null;
-
-    const playlistItems = await youtubeSvc.getPlaylistItems(playlistId);
+    return this.getVideoUrlByPlaylistId(playlistId);
+  }
+  async getVideoUrlByPlaylistId(playlistId) {
+    const playlistItems = await this.youtubeSvc.getPlaylistItems(playlistId);
     const videoItem = youtubeService.getRandVideoItemFromPlaylistItems(playlistItems);
     return messageService.genVideoUrlByVideoId(videoItem.contentDetails.videoId);
   }
