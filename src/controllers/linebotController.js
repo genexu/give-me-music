@@ -11,7 +11,7 @@ class linebotController {
     const messageSvc = new messageService({ youtubeSvc });
     const linebotSvc = new linebotService({ client, messageSvc });
     Promise
-      .all(req.body.events.map(linebotSvc.handleEvent))
+      .all(req.body.events.map((event) => linebotSvc.handleEvent(event)))
       .then((result) => res.json(result));
   }
 }
