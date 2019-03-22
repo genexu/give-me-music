@@ -1,5 +1,5 @@
 const youtubeConfig = {
-  key: 'YOUTUBE_API_KEY',
+  key: process.env.YOUTUBE_API_KEY || 'YOUTUBE_API_KEY',
   tags: [
     { primaryTag: '勵志', secondaryTag: 'Inspirational', shortcut: 'I', playlistId: 'PLWP5j0tk8f8aDz3HvSy5I5moBLzo8kCaP' },
     { primaryTag: 'FridayNight', secondaryTag: 'FirdayNight', shortcut: 'F', playlistId: 'PLWP5j0tk8f8YO0XDiSP4_92wZzvFAasjt' },

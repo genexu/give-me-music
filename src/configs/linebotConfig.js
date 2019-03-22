@@ -1,6 +1,6 @@
 const linebotConfig = {
-  channelAccessToken: 'YOUR_CHANNEL_ACCESS_TOKEN',
-  channelSecret: 'YOUR_CHANNEL_SECRET'
+  channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN || 'LINE_CHANNEL_ACCESS_TOKEN',
+  channelSecret: process.env.LINE_CHANNEL_SECRET || 'LINE_CHANNEL_SECRET'
 }
 
 export default linebotConfig;
