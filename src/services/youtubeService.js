@@ -2,26 +2,26 @@ import axios from 'axios';
 import youtubeConfig from '../configs/youtubeConfig';
 
 class youtubeService {
-  constructor({part = 'snippet,contentDetails', maxResults = 50, fields = 'nextPageToken,items(snippet/title,contentDetails/videoId)'}) {
+  constructor({ 
+    apiUrl = 'https://www.googleapis.com/youtube/v3/playlistItems',
+    part = 'snippet,contentDetails',
+    maxResults = 50,
+    fields = 'nextPageToken,items(snippet/title,contentDetails/videoId)'
+  }) {
     this.part = part;
     this.maxResults = maxResults;
     this.fields = fields;
     this.key = youtubeConfig.key;
+    this.apiUrl = apiUrl;
   }
   getPlaylistItems(playlistId, pageToken = null) {
-    let baseUrl = `https://www.googleapis.com/youtube/v3/playlistItems?playlistId=${playlistId}&part=${this.part}&maxResults=${this.maxResults}&fields=${this.fields}&key=${this.key}`;
+    let baseUrl = `${this.apiUrl}?playlistId=${playlistId}&part=${this.part}&maxResults=${this.maxResults}&fields=${this.fields}&key=${this.key}`;
     let url = baseUrl += pageToken ? `&pageToken=${pageToken}` : '';
     return axios.get(url)
       .then(res => {
-        let items = res.data.items
-        let nextPageToken = res.data.nextPageToken
-        if (nextPageToken) {
-          return this.getPlaylistItems(playlistId, nextPageToken)
-            .then(nextItems => {
-              return items.concat(nextItems)
-            })
-        }
-        return items;
+        let { items, nextPageToken } = res.data;
+        if (!nextPageToken) return items;
+        return this.getPlaylistItems(playlistId, nextPageToken).then(nextItems => items.concat(nextItems))
       })
       .catch(err => {
         console.error(err.response.data.error);
