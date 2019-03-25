@@ -1,6 +1,13 @@
 runtime: custom
 env: flex
 
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 3
+  cool_down_period_sec: 120
+  cpu_utilization:
+    target_utilization: 0.7
+
 env_variables:
   LINE_CHANNEL_ACCESS_TOKEN: "LINE_CHANNEL_ACCESS_TOKEN"
   LINE_CHANNEL_SECRET: "LINE_CHANNEL_SECRET"
